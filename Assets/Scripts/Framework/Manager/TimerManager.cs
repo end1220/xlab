@@ -33,7 +33,7 @@ namespace Lite
 		}
 
 		// Use this for initialization
-		public void OnStart()
+		public override void OnStart()
 		{
 			StartTimer(AppDefine.TimerInterval);
 		}

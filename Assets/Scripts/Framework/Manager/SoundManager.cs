@@ -10,7 +10,7 @@ namespace Lite
 		private AudioSource audioSource;
 		private Hashtable sounds = new Hashtable();
 
-		public void OnStart()
+		public override void OnStart()
 		{
 			audioSource = App.Instance.GetComponent<AudioSource>();
 			if (audioSource == null)

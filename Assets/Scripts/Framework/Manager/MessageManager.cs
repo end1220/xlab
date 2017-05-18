@@ -13,17 +13,17 @@ namespace Lite
 
 		private Dictionary<string, List<IMessageListener>> mListenerMap = new Dictionary<string, List<IMessageListener>>();
 
-		public void OnInitialize()
+		public override void OnInit()
 		{
 			mListenerMap.Clear();
 		}
 
-		public void OnDestroy()
+		public override void OnDestroy()
 		{
 
 		}
 
-		public void OnTick()
+		public override void OnTick()
 		{
 			
 		}

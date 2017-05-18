@@ -25,17 +25,17 @@ namespace Lite
 			}
 		}
 
-		public void OnInitialize()
+		public override void OnInit()
 		{
 			SocketClient.Init();
 		}
 
-		public void OnStart()
+		public override void OnStart()
 		{
 			//Util.CallMethod("CSharpPort.Network_OnStart");
 		}
 
-		public void OnDestroy()
+		public override void OnDestroy()
 		{
 			//Util.CallMethod("CSharpPort.Network_OnDestroy");
 			SocketClient.Destroy();
@@ -50,7 +50,7 @@ namespace Lite
 			}
 		}
 
-		public void OnTick()
+		public override void OnTick()
 		{
 			if (mMessageQueue.Count > 0)
 			{

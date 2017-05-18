@@ -10,13 +10,13 @@ namespace Lite
 	{
 		WindowManager mWindowMgr = null;
 
-		public void OnInitialize()
+		public override void OnInit()
 		{
 			mWindowMgr = new WindowManager();
 			mWindowMgr.Init();
 		}
 
-		public void OnDestroy()
+		public override void OnDestroy()
 		{
 			this.Cleanup();
 		}

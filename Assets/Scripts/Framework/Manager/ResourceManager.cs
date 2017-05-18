@@ -69,19 +69,19 @@ namespace Lite
 		}
 #endif
 
-		public void Init()
+		public override void OnInit()
 		{
 			
 		}
 
 
-		public void Tick()
+		public override void OnTick()
 		{
 			UpdateLoading();
 		}
 
 
-		public void OnDestroy()
+		public override void OnDestroy()
 		{
 
 		}
