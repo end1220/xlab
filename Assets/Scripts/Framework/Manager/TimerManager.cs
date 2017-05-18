@@ -21,7 +21,7 @@ namespace Lite
 	}
 
 
-	public class TimerManager : Manager
+	public class TimerManager : BaseManager
 	{
 		private float interval = 0;
 		private List<TimerInfo> objects = new List<TimerInfo>();
@@ -33,7 +33,7 @@ namespace Lite
 		}
 
 		// Use this for initialization
-		public override void Start()
+		public void OnStart()
 		{
 			StartTimer(AppDefine.TimerInterval);
 		}

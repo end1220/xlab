@@ -5,12 +5,12 @@ using System.Collections.Generic;
 namespace Lite
 {
 
-	public class SoundManager : Manager
+	public class SoundManager : BaseManager
 	{
 		private AudioSource audioSource;
 		private Hashtable sounds = new Hashtable();
 
-		public override void Start()
+		public void OnStart()
 		{
 			audioSource = App.Instance.GetComponent<AudioSource>();
 			if (audioSource == null)

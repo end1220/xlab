@@ -36,7 +36,7 @@ public class TestObjectPool : MonoBehaviour
 		for (int i = 0; i < resCount; i++)
 		{
 			string resName = prefabDir + i;
-			var go = ObjectPool.Instance.GetGO(resName);
+			var go = ObjectPool.Instance.GetGO("", resName);
 			ObjectPool.Instance.PutGO(resName, go, ObjectPool.ObjectType.Role);
 			progressText = "" + (i + 1);
 			yield return new WaitForEndOfFrame();
@@ -50,7 +50,7 @@ public class TestObjectPool : MonoBehaviour
 		for (int i = 0; i < resCount; i++)
 		{
 			string resName = prefabDir + i;
-			var go = ObjectPool.Instance.GetGO(resName);
+			var go = ObjectPool.Instance.GetGO("", resName);
 			go.name = "" + i;
 			go.transform.parent = root.transform;
 		}

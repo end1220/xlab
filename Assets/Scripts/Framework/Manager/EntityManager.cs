@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Lite
 {
-	public class EntityManager : Manager
+	public class EntityManager : BaseManager
 	{
 		private Dictionary<long, TestPlayer> mEntityMap;
 

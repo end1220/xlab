@@ -9,7 +9,7 @@ namespace Lite
 {
 	using PacketPair = KeyValuePair<ushort, Packet>;
 
-	public class NetworkManager : Manager
+	public class NetworkManager : BaseManager
 	{
 		private SocketClient mSocketClient;
 		static readonly object mLockObject = new object();
@@ -25,17 +25,17 @@ namespace Lite
 			}
 		}
 
-		public override void Initialize()
+		public void OnInitialize()
 		{
 			SocketClient.Init();
 		}
 
-		public override void Start()
+		public void OnStart()
 		{
 			//Util.CallMethod("CSharpPort.Network_OnStart");
 		}
 
-		public override void Destroy()
+		public void OnDestroy()
 		{
 			//Util.CallMethod("CSharpPort.Network_OnDestroy");
 			SocketClient.Destroy();
@@ -50,7 +50,7 @@ namespace Lite
 			}
 		}
 
-		public override void Update()
+		public void OnTick()
 		{
 			if (mMessageQueue.Count > 0)
 			{

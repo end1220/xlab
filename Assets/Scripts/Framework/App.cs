@@ -9,12 +9,12 @@ namespace Lite
 {
 	public class App : SingletonMono<App>
 	{
-		private Dictionary<string, Manager> mManagerDic = new Dictionary<string, Manager>();
+		private Dictionary<string, BaseManager> mManagerDic = new Dictionary<string, BaseManager>();
 
 		private bool canUpdate = false;
 
 		// for quick access
-		public static EventManager		eventManager = null;
+		public static MessageManager		eventManager = null;
 		public static ResourceManager	resManager = null;
 		public static UIManager			uiManager = null;
 		public static NetworkManager	networkManager = null;
@@ -23,7 +23,7 @@ namespace Lite
 
 		public void Initialize()
 		{
-			eventManager = this.AddManager<EventManager>();
+			eventManager = this.AddManager<MessageManager>();
 			resManager = this.AddManager<ResourceManager>();
 			networkManager = this.AddManager<NetworkManager>();
 			uiManager = this.AddManager<UIManager>();
@@ -31,7 +31,7 @@ namespace Lite
 			
 
 			foreach (var mgr in mManagerDic.Values)
-				mgr.Initialize();
+				mgr.OnInit();
 
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			Application.targetFrameRate = AppDefine.GameFrameRate;
@@ -42,8 +42,8 @@ namespace Lite
 			IDictionaryEnumerator itor = mManagerDic.GetEnumerator();
 			while (itor.MoveNext())
 			{
-				Manager mgr = (Manager)(itor.Entry.Value);
-				mgr.Start();
+				IManager mgr = (IManager)(itor.Entry.Value);
+				mgr.OnStart();
 			}
 			canUpdate = true;
 		}
@@ -52,7 +52,7 @@ namespace Lite
 		{
 			foreach (var mgr in mManagerDic.Values)
 			{
-				mgr.Destroy();
+				mgr.OnDestroy();
 			}
 		}
 
@@ -64,12 +64,12 @@ namespace Lite
 			IDictionaryEnumerator itor = mManagerDic.GetEnumerator();
 			while (itor.MoveNext())
 			{
-				Manager mgr = (Manager)(itor.Entry.Value);
-				mgr.Update();
+				IManager mgr = (IManager)(itor.Entry.Value);
+				mgr.OnTick();
 			}
 		}
 
-		private T AddManager<T>() where T : Manager, new()
+		private T AddManager<T>() where T : BaseManager, new()
 		{
 			T mgr = null;
 			string name = typeof(T).ToString();

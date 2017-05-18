@@ -18,7 +18,7 @@ namespace Lite.Bev
 			this.agent = agent;
 		}
 
-		public override void OnStart()
+		public void OnStart()
 		{
 			animator = GetComponentInChildren<Animator>();
 		}

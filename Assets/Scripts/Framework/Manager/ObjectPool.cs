@@ -41,7 +41,7 @@ namespace Lite
 		private GameObject poolGameObjectRoot = null;
 
 
-		public GameObject GetGO(string resName)
+		public GameObject GetGO(string assetBundle, string resName)
 		{
 			PoolInfo poolInfo = null;
 			if (!poolInfoDic.TryGetValue(resName, out poolInfo))
@@ -61,7 +61,7 @@ namespace Lite
 
 			if (go == null)
 			{
-				var loadedObj = App.resManager.LoadRes(resName);
+				var loadedObj = App.resManager.LoadAsset<GameObject>(assetBundle, resName);
 				// instantiate one.
 				go = GameObject.Instantiate(loadedObj) as GameObject;
 			}

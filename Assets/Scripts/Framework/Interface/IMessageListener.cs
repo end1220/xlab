@@ -3,7 +3,7 @@
 namespace Lite
 {
 
-	public interface IListener
+	public interface IMessageListener
 	{
 		void OnMessage(Message msg);
 	}

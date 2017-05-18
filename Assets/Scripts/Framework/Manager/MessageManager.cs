@@ -8,41 +8,41 @@ using System.Collections.Generic;
 namespace Lite
 {
 
-	public class EventManager : Manager
+	public class MessageManager : BaseManager
 	{
 
-		private Dictionary<string, List<IListener>> mListenerMap = new Dictionary<string, List<IListener>>();
+		private Dictionary<string, List<IMessageListener>> mListenerMap = new Dictionary<string, List<IMessageListener>>();
 
-		public override void Initialize()
+		public void OnInitialize()
 		{
 			mListenerMap.Clear();
 		}
 
-		public override void Destroy()
+		public void OnDestroy()
 		{
 
 		}
 
-		public override void Update()
+		public void OnTick()
 		{
 			
 		}
 
-		public void RegisterListener(string eventName, IListener listener)
+		public void RegisterListener(string eventName, IMessageListener listener)
 		{
-			List<IListener> listenerList = null;
+			List<IMessageListener> listenerList = null;
 			if (!mListenerMap.TryGetValue(eventName, out listenerList))
 			{
-				listenerList = new List<IListener>();
+				listenerList = new List<IMessageListener>();
 				mListenerMap.Add(eventName, listenerList);
 			}
 			if (!listenerList.Contains(listener))
 				listenerList.Add(listener);
 		}
 
-		public void UnregisterListener(string eventName, IListener listener)
+		public void UnregisterListener(string eventName, IMessageListener listener)
 		{
-			List<IListener> listenerList = null;
+			List<IMessageListener> listenerList = null;
 			if (mListenerMap.TryGetValue(eventName, out listenerList))
 			{
 				if (listenerList.Contains(listener))
@@ -58,12 +58,12 @@ namespace Lite
 
 		public void SendMessage(Message evnt)
 		{
-			List<IListener> listenerList = null;
+			List<IMessageListener> listenerList = null;
 			if (mListenerMap.TryGetValue(evnt.name, out listenerList))
 			{
 				for (int i = 0; i < listenerList.Count; ++i)
 				{
-					IListener listener = listenerList[i];
+					IMessageListener listener = listenerList[i];
 					if (listener != null)
 						listener.OnMessage(evnt);
 				}

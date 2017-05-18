@@ -55,7 +55,7 @@ namespace Lite.Strategy
 			AppFacade.Instance.sensorManager.AddSensor<SimpleAgentSensor>(this);
 		}
 
-		public override void OnDestroy()
+		public void OnDestroy()
 		{
 			
 		}

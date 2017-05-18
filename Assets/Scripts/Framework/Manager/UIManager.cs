@@ -6,17 +6,17 @@ using Lite.ui;
 namespace Lite
 {
 
-	public class UIManager : Manager
+	public class UIManager : BaseManager
 	{
 		WindowManager mWindowMgr = null;
 
-		public override void Initialize()
+		public void OnInitialize()
 		{
 			mWindowMgr = new WindowManager();
 			mWindowMgr.Init();
 		}
 
-		public override void Destroy()
+		public void OnDestroy()
 		{
 			this.Cleanup();
 		}

@@ -15,7 +15,7 @@ namespace Lite.Bev
 		private AgentAction currentAction;
 
 
-		public override void OnStart()
+		public void OnStart()
 		{
 			
 		}

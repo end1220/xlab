@@ -41,7 +41,7 @@ namespace Lite
 			maxSprintSpeed = 4;
 		}
 
-		public override void OnStart()
+		public void OnStart()
 		{
 			controller = GetComponent<CharacterController>();
 			theRigidbody = GetComponent<Rigidbody>();

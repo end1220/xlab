@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Lite;
 
 
-public class StartUp : MonoBehaviour, IListener
+public class StartUp : MonoBehaviour, IMessageListener
 {
 	string msgText = "";
 
