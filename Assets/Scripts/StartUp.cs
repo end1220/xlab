@@ -19,6 +19,7 @@ public class StartUp : MonoBehaviour, IMessageListener
 
 		//InputField field = null;
 		//field.text;
+		App.Instance.StartManagers();
 	}
 
 	void Start()

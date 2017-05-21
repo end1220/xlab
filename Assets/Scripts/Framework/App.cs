@@ -61,10 +61,10 @@ namespace Lite
 			if (!canUpdate)
 				return;
 
-			IDictionaryEnumerator itor = mManagerDic.GetEnumerator();
+			var itor = mManagerDic.GetEnumerator();
 			while (itor.MoveNext())
 			{
-				IManager mgr = (IManager)(itor.Entry.Value);
+				var mgr = itor.Current.Value;
 				mgr.OnTick();
 			}
 		}
