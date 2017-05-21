@@ -11,42 +11,35 @@ namespace Lite
 	{
 		private Dictionary<string, BaseManager> mManagerDic = new Dictionary<string, BaseManager>();
 
-		private bool canUpdate = false;
-
-		// for quick access
-		public static MessageManager		eventManager = null;
-		public static ResourceManager	resManager = null;
-		public static UIManager			uiManager = null;
-		public static NetworkManager	networkManager = null;
-		public static EntityManager entityManager = null;
+		private bool canTickManagers = false;
 
 
 		public void Initialize()
 		{
-			eventManager = this.AddManager<MessageManager>();
-			resManager = this.AddManager<ResourceManager>();
-			networkManager = this.AddManager<NetworkManager>();
-			uiManager = this.AddManager<UIManager>();
-			entityManager = this.AddManager<EntityManager>();
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			Application.targetFrameRate = AppDefine.GameFrameRate;
+
+			this.AddManager<MessageManager>();
+			this.AddManager<ResourceManager>();
+			this.AddManager<NetworkManager>();
+			this.AddManager<UIManager>();
+			this.AddManager<EntityManager>();
 			
 
 			foreach (var mgr in mManagerDic.Values)
 				mgr.OnInit();
-
-			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-			Application.targetFrameRate = AppDefine.GameFrameRate;
 		}
+
 
 		public void StartManagers()
 		{
-			IDictionaryEnumerator itor = mManagerDic.GetEnumerator();
-			while (itor.MoveNext())
+			foreach (var mgr in mManagerDic.Values)
 			{
-				IManager mgr = (IManager)(itor.Entry.Value);
 				mgr.OnStart();
 			}
-			canUpdate = true;
+			canTickManagers = true;
 		}
+
 
 		void OnDestroy()
 		{
@@ -56,18 +49,17 @@ namespace Lite
 			}
 		}
 
+
 		void Update()
 		{
-			if (!canUpdate)
-				return;
-
-			var itor = mManagerDic.GetEnumerator();
-			while (itor.MoveNext())
+			if (canTickManagers)
 			{
-				var mgr = itor.Current.Value;
-				mgr.OnTick();
+				var itor = mManagerDic.GetEnumerator();
+				while (itor.MoveNext())
+					itor.Current.Value.OnTick();
 			}
 		}
+
 
 		private T AddManager<T>() where T : BaseManager, new()
 		{
@@ -82,13 +74,20 @@ namespace Lite
 		}
 
 
-		/*public T GetManager<T>() where T : Manager
+		public T GetManager<T>() where T : BaseManager
 		{
 			string name = typeof(T).ToString();
-			Manager mgr = null;
+			BaseManager mgr = null;
 			mManagerDic.TryGetValue(name, out mgr);
 			return mgr as T;
-		}*/
+		}
+
+		// for quick access
+		public static MessageManager msgManager { get { return App.Instance.GetManager<MessageManager>(); } }
+		public static ResourceManager resManager { get { return App.Instance.GetManager<ResourceManager>(); } }
+		public static UIManager uiManager { get { return App.Instance.GetManager<UIManager>(); } }
+		public static NetworkManager networkManager { get { return App.Instance.GetManager<NetworkManager>(); } }
+		public static EntityManager entityManager { get { return App.Instance.GetManager<EntityManager>(); } }
 
 	}
 }

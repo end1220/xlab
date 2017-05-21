@@ -12,10 +12,10 @@ public class StartUp : MonoBehaviour, IMessageListener
 	{
 		App.Instance.Initialize();
 
-		App.eventManager.RegisterListener(MessageDefine.UPDATE_MESSAGE, this);
-		App.eventManager.RegisterListener(MessageDefine.UPDATE_EXTRACT, this);
-		App.eventManager.RegisterListener(MessageDefine.UPDATE_DOWNLOAD, this);
-		App.eventManager.RegisterListener(MessageDefine.UPDATE_PROGRESS, this);
+		App.msgManager.RegisterListener(MessageDefine.UPDATE_MESSAGE, this);
+		App.msgManager.RegisterListener(MessageDefine.UPDATE_EXTRACT, this);
+		App.msgManager.RegisterListener(MessageDefine.UPDATE_DOWNLOAD, this);
+		App.msgManager.RegisterListener(MessageDefine.UPDATE_PROGRESS, this);
 
 		//InputField field = null;
 		//field.text;
@@ -53,7 +53,7 @@ public class StartUp : MonoBehaviour, IMessageListener
 
 	void OnDestroy()
 	{
-		App.eventManager.UnregisterListener(MessageDefine.UPDATE_MESSAGE, this);
+		App.msgManager.UnregisterListener(MessageDefine.UPDATE_MESSAGE, this);
 	}
 
 }
