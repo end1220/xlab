@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Collections;
 
-namespace TwFramework
+namespace Lite
 {
 	public class AssetBundlesMenuItems
 	{

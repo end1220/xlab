@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 
 
-namespace TwFramework
+namespace Lite
 {
 
 	public class BuildAssetBundles
@@ -65,8 +65,8 @@ namespace TwFramework
 		{
 			try
 			{
-				string outputPath = Path.Combine(tmpOutputPath, Utils.GetPlatformName());
-				outputPath = Path.Combine(outputPath, AppConst.AppName);
+				string outputPath = Path.Combine(tmpOutputPath, GetPlatformName());
+				outputPath = Path.Combine(outputPath, AppDefine.AppName);
 
 				if (Directory.Exists(outputPath))
 					Directory.Delete(outputPath, true);
@@ -266,6 +266,21 @@ namespace TwFramework
 		}
 
 
+		static string GetPlatformName()
+		{
+			switch(EditorUserBuildSettings.activeBuildTarget)
+			{
+				case BuildTarget.Android:
+					return "Android";
+				case BuildTarget.iOS:
+					return "iOS";
+				case BuildTarget.StandaloneWindows64:
+					return "Win64";
+			}
+			return "NoTarget";
+		}
+
+
 		#region 文件列表
 
 		static List<string> paths = new List<string>();
@@ -291,8 +306,8 @@ namespace TwFramework
 			{
 				if (file.EndsWith(".meta") || file.Contains(".DS_Store"))
 					continue;
-				
-				string md5 = Utils.md5file(file);
+
+				string md5 = Util.md5file(file);
 				string value = file.Replace(resPath, "");
 				sw.WriteLine(value + "|" + md5);
 			}
