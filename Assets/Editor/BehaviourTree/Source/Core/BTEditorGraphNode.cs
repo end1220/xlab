@@ -18,7 +18,7 @@ namespace Lite.BevTreeEditor
 		private BTEditorGraphNode m_parent;
 		private BTEditorGraph m_graph;
 		private Vector2 m_dragOffset;
-		private float? m_lastClickTime;
+		private float m_lastClickTime;
 		private bool m_isSelected;
 		private bool m_isDragging;
 		private bool m_canBeginDragging;
@@ -90,7 +90,7 @@ namespace Lite.BevTreeEditor
 			m_isDragging = false;
 			m_canBeginDragging = false;
 			m_dragOffset = Vector2.zero;
-			m_lastClickTime = null;
+			m_lastClickTime = -1;
 
 		}
 
@@ -122,18 +122,15 @@ namespace Lite.BevTreeEditor
 					if(!m_isSelected)
 						m_graph.OnNodeSelect(this);
 
-					if(m_lastClickTime.HasValue)
+					if(m_lastClickTime > 0)
 					{
-						if(Time.realtimeSinceStartup <= m_lastClickTime.Value + DOUBLE_CLICK_THRESHOLD)
+						if(Time.realtimeSinceStartup <= m_lastClickTime + DOUBLE_CLICK_THRESHOLD)
 						{
 							OnDoubleClicked();
 						}
-						m_lastClickTime = null;
 					}
-					else
-					{
-						m_lastClickTime = Time.realtimeSinceStartup;
-					}
+					
+					m_lastClickTime = Time.realtimeSinceStartup;
 
 					m_canBeginDragging = !IsRoot;
 					BTEditorCanvas.Current.Event.Use();

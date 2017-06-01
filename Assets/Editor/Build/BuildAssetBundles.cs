@@ -61,7 +61,7 @@ namespace Lite
 
 
 
-		public static void BuildAll()
+		public static void Build()
 		{
 			try
 			{
