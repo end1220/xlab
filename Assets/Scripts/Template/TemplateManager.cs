@@ -1,4 +1,4 @@
-using UnityEditor;
+
 using UnityEngine;
 using System.IO;
 using System.Collections;
@@ -38,10 +38,10 @@ namespace TwGame
 		{
 			string scriptObjPath = "Assets/Locke/obj/";
 
-			IDictionaryEnumerator iter = files.GetEnumerator();
+			var iter = files.GetEnumerator();
 			while (iter.MoveNext())
 			{
-				string filePath = iter.Value as string;
+				string filePath = iter.Current.Value as string;
 
 				Dictionary<int, ScriptableObject> soDic = new Dictionary<int, ScriptableObject>();
 
@@ -52,11 +52,11 @@ namespace TwGame
 					string strTempPath = filePaths[i].Replace(@"\", "/");
 					strTempPath = strTempPath.Substring(strTempPath.IndexOf("Assets"));
 
-					TwTemplate tp = AssetDatabase.LoadAssetAtPath(strTempPath, typeof(ScriptableObject)) as TwTemplate;
+					//TwTemplate tp = UnityEditor.AssetDatabase.LoadAssetAtPath(strTempPath, typeof(ScriptableObject)) as TwTemplate;
 
-					soDic.Add(tp.id, tp);
+					//soDic.Add(tp.id, tp);
 				}
-				templatePool.Add(iter.Key as Type, soDic);
+				templatePool.Add(iter.Current.Key as Type, soDic);
 			}
 		}
 
