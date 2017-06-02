@@ -62,6 +62,9 @@ public class KeyMouseProcessor : MonoBehaviour
 			}
 		}
 
+		float scrollValue = Input.GetAxis("Mouse ScrollWheel");
+		AppControl.Instance.OnTouchScale(scrollValue * 5);
+
 	}
 
 
