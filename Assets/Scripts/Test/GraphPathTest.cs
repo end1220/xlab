@@ -70,7 +70,7 @@ public class GraphPathTest : MonoBehaviour
 			for (int i = 0; i < path.Length; ++i)
 			{
 				Rect screenRect = new Rect(offsetX + path[i].x, offsetY + path[i].y, 4, 4);
-				Graphics.DrawTexture(screenRect, dotRedTex, new Rect(0.0f, 0.0f, 1f, 1f), 0, 0, 0, 0, null);
+				Graphics.DrawTexture(screenRect, dotBlueTex, new Rect(0.0f, 0.0f, 1f, 1f), 0, 0, 0, 0, null);
 			}
 		}
 
