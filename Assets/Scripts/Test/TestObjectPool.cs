@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Lite;
-using Lite.ui;
 
 /* 性能测试
  * 1.加载图片无压力，测试加载100个1024 png、bmp，对fps没有影响。飞快。
@@ -89,27 +88,6 @@ public class TestObjectPool : MonoBehaviour
 		yield return null;
 	}
 
-	private IEnumerator LoadDB()
-	{
-		float t1 = Time.realtimeSinceStartup;
-		IDictionaryEnumerator dicEtor = DB.Instance.TableList.GetEnumerator();
-		int i = 0;
-		while (dicEtor.MoveNext())
-		{
-			DB.Instance.LoadRes(dicEtor.Key as System.Type, "Template/" + dicEtor.Value as string);
-			i++;
-			progressText = "" + i;
-			yield return new WaitForEndOfFrame();
-		}
-		Log.Info("db time " + (Time.realtimeSinceStartup - t1));
-	}
-
-	private void TestDB()
-	{
-		/*var d1 = DB.Instance.GetDataByKey<Npc0_Data>(19002);
-		var d2 = DB.Instance.GetDataByKey<Npc55_Data>(19003);
-		var d3 = DB.Instance.GetDataByKey<Npc99_Data>(19004);
-		progressText = d1.res + " " + d2.res + " " + d3.res;*/
-	}
+	
 
 }

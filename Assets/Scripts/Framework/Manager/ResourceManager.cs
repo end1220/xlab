@@ -24,7 +24,7 @@ namespace Lite
 	}
 
 
-	public class ResourceManager : BaseManager
+	public class ResourceManager : MonoBehaviour, IManager
 	{
 		string m_BaseDownloadingURL = "Assets/StreamingAssets/";
 
@@ -69,19 +69,19 @@ namespace Lite
 		}
 #endif
 
-		public override void OnInit()
+		public void Init()
 		{
 			
 		}
 
 
-		public override void OnTick()
+		public void Tick()
 		{
 			UpdateLoading();
 		}
 
 
-		public override void OnDestroy()
+		public void Destroy()
 		{
 
 		}

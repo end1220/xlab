@@ -9,9 +9,7 @@ namespace Lite
 {
 	public class App : SingletonMono<App>
 	{
-		private Dictionary<string, BaseManager> mManagerDic = new Dictionary<string, BaseManager>();
-
-		private bool canTickManagers = false;
+		private Dictionary<string, IManager> mManagerDic = new Dictionary<string, IManager>();
 
 
 		public void Initialize()
@@ -19,25 +17,13 @@ namespace Lite
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			Application.targetFrameRate = AppDefine.GameFrameRate;
 
-			this.AddManager<MessageManager>();
 			this.AddManager<ResourceManager>();
 			this.AddManager<NetworkManager>();
-			this.AddManager<UIManager>();
 			this.AddManager<EntityManager>();
 			
 
 			foreach (var mgr in mManagerDic.Values)
-				mgr.OnInit();
-		}
-
-
-		public void StartManagers()
-		{
-			foreach (var mgr in mManagerDic.Values)
-			{
-				mgr.OnStart();
-			}
-			canTickManagers = true;
+				mgr.Init();
 		}
 
 
@@ -45,23 +31,20 @@ namespace Lite
 		{
 			foreach (var mgr in mManagerDic.Values)
 			{
-				mgr.OnDestroy();
+				mgr.Destroy();
 			}
 		}
 
 
 		void Update()
 		{
-			if (canTickManagers)
-			{
-				var itor = mManagerDic.GetEnumerator();
-				while (itor.MoveNext())
-					itor.Current.Value.OnTick();
-			}
+			var itor = mManagerDic.GetEnumerator();
+			while (itor.MoveNext())
+				itor.Current.Value.Tick();
 		}
 
 
-		private T AddManager<T>() where T : BaseManager, new()
+		private T AddManager<T>() where T : MonoBehaviour, IManager, new()
 		{
 			T mgr = null;
 			string name = typeof(T).ToString();
@@ -74,18 +57,16 @@ namespace Lite
 		}
 
 
-		public T GetManager<T>() where T : BaseManager
+		public T GetManager<T>() where T : MonoBehaviour, IManager
 		{
 			string name = typeof(T).ToString();
-			BaseManager mgr = null;
+			IManager mgr = null;
 			mManagerDic.TryGetValue(name, out mgr);
 			return mgr as T;
 		}
 
 		// for quick access
-		public static MessageManager msgManager { get { return App.Instance.GetManager<MessageManager>(); } }
 		public static ResourceManager resManager { get { return App.Instance.GetManager<ResourceManager>(); } }
-		public static UIManager uiManager { get { return App.Instance.GetManager<UIManager>(); } }
 		public static NetworkManager networkManager { get { return App.Instance.GetManager<NetworkManager>(); } }
 		public static EntityManager entityManager { get { return App.Instance.GetManager<EntityManager>(); } }
 

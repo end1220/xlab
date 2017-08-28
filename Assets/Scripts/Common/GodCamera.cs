@@ -138,7 +138,7 @@ namespace Lite
 				}
 				else if (hitLayer == LayerMask.NameToLayer(AppDefine.LayerBot))
 				{
-					OnClickBot(hit.collider.gameObject);
+					
 				}
 			}
 		}
@@ -154,19 +154,7 @@ namespace Lite
 			clickTerrainEffect.transform.position = position + new Vector3(0,-0.495f,0);
 		}
 
-		private void OnClickBot(GameObject go)
-		{
-			//Log.Info("click bot");
-			Bev.AgentComponent agentCom = go.GetComponent<Bev.AgentComponent>();
-			if (agentCom != null)
-			{
-				var target = clickTerrainEffect.transform.position;
-				Bev.MoveToPosition mvt = new Bev.MoveToPosition();
-				mvt.targetPosition = target;
-				mvt.speedType = Bev.MoveSpeed.Normal;
-				agentCom.agent.PushAction(mvt);
-			}
-		}
+		
 
 	}
 
