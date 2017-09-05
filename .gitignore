@@ -17,3 +17,6 @@ Assets/StreamingAssets/files.txt.meta
 Assets/Lua/Example/
 Assets/Lua/Example.meta
 xlab.v12.suo
+.vs/xlab/v15/.suo
+xlab.Editor.csproj
+xlab.csproj
